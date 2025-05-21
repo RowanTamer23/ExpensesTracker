@@ -44,7 +44,10 @@ class _NewExpenseState extends State<NewExpense> {
         context: context,
         builder:
             (ctx) => AlertDialog(
-              title: Text('Invalid Input'),
+              title: Text(
+                'Invalid Input',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
               content: Text(
                 'Please make sure you entered all the values correctly !',
               ),
@@ -72,7 +75,7 @@ class _NewExpenseState extends State<NewExpense> {
   }
 
   @override
-  void Dispose() {
+  void dispose() {
     _titleController.dispose();
     _amountController.dispose();
     super.dispose();
@@ -81,11 +84,18 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.fromLTRB(
+        15,
+        15,
+        15,
+        MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: _titleController,
+            style: Theme.of(context).textTheme.bodyMedium,
             decoration: InputDecoration(label: Text('Enter your Expense')),
           ),
           SizedBox(height: 20),
@@ -93,9 +103,9 @@ class _NewExpenseState extends State<NewExpense> {
             children: [
               Expanded(
                 child: TextField(
+                  style: Theme.of(context).textTheme.bodyMedium,
                   controller: _amountController,
-
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     label: Text('Amount'),
                     prefix: Text('\$ '),
@@ -130,7 +140,10 @@ class _NewExpenseState extends State<NewExpense> {
                         .map(
                           (category) => DropdownMenuItem(
                             value: category,
-                            child: Text(category.name.toUpperCase()),
+                            child: Text(
+                              category.name.toUpperCase(),
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ),
                         )
                         .toList(),
@@ -151,9 +164,10 @@ class _NewExpenseState extends State<NewExpense> {
                 },
                 child: Text('cancel'),
               ),
-              TextButton(onPressed: submitExpense, child: Text('submit')),
+              ElevatedButton(onPressed: submitExpense, child: Text('submit')),
             ],
           ),
+          SizedBox(height: 100),
         ],
       ),
     );

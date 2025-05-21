@@ -1,4 +1,5 @@
 import 'package:expenses_tracker/models/expense.dart';
+import 'package:expenses_tracker/widgets/chart/chart.dart';
 import 'package:expenses_tracker/widgets/expenses_list/expenses_list.dart';
 import 'package:expenses_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +14,24 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> _registeredExpenses = [];
+  final List<Expense> _registeredExpenses = [
+    Expense(
+      title: 'Coffee',
+      amount: 4.99,
+      date: DateTime.now(),
+      category: Category.food,
+    ),
+    Expense(
+      title: 'Coffee',
+      amount: 4.99,
+      date: DateTime.now(),
+      category: Category.food,
+    ),
+  ];
 
   void _openAddExpenceOverlay() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (ctx) => NewExpense(onAddExpense: _addExpense),
     );
@@ -61,6 +76,7 @@ class _ExpensesState extends State<Expenses> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text('Expenses Tracker'),
         actions: [
@@ -69,9 +85,8 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-
         children: [
-          Text('place holder for the chart'),
+          chart(expenses: _registeredExpenses),
           Expanded(child: mainContent),
         ],
       ),

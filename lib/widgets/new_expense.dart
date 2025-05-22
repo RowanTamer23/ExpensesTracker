@@ -99,7 +99,7 @@ class _NewExpenseState extends State<NewExpense> {
       Expense(
         title: _titleController.text,
         date: selectedDate!,
-        amount: enteredamount!,
+        amount: enteredamount,
         category: _selectedCategory,
       ),
     );

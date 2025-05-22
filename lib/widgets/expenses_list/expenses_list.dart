@@ -16,6 +16,7 @@ class ExpenseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
       itemCount: expenses.length,
       itemBuilder:
           (cxt, index) => Dismissible(
